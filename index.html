@@ -15,8 +15,18 @@ html,body{margin:0;background:var(--color-bg)}body{padding:24px}
 .pp-ttl{min-width:0}
 .pp-logo{height:46px;width:auto;flex:none}
 @media (max-width:640px){.pp-logo{height:30px}}
-.pp{--c-total:#8A8D8F;--c-inc:#B4605C;--c-dec:#A5D100;--c-sec:#D8EB9A;--c-grid:#E2E8F0;--c27:#D8EB9A;--cds-chart-muted:#8A8D8F;--cds-chart-grid:#E2E8F0;--cds-chart-axis:#E2E8F0;--color-bad:#9B3F3B;--color-ok:#5B7A00}
+.pp{--c-total:#B0B3B5;--c-inc:#B4605C;--c-dec:#A5D100;--c-sec:#A5D100;--c-grid:#E2E8F0;--c27:#D8EB9A;--cds-chart-muted:#8A8D8F;--cds-chart-grid:#E2E8F0;--cds-chart-axis:#E2E8F0;--color-bad:#9B3F3B;--color-ok:#5B7A00}
 @media (prefers-color-scheme:dark){.pp{--cds-chart-grid:#334155;--cds-chart-axis:#334155;--color-bad:#E39A96;--color-ok:#B6DB3A}}
+#pp-filtros{padding:var(--cds-pad-sm) var(--cds-pad-lg)}
+#pp-filtros .pp-filters{grid-template-columns:repeat(7,minmax(0,1fr));gap:8px 10px}
+#pp-filtros .pp-f{font-size:11px;gap:2px}
+#pp-filtros .pp-f select{padding:3px 6px;font-size:12.5px;height:28px;text-overflow:ellipsis}
+.pp-fact{display:flex;justify-content:flex-end;margin-top:8px}
+.pp-btn.pp-reset{padding:3px 12px;font-size:12px;border-radius:8px;background:#FCEDEC;color:#9B3F3B;border:1px solid #E8BDBA;box-shadow:0 1px 3px rgba(155,63,59,.28)}
+.pp-btn.pp-reset:hover{background:#F8DCDA}
+@media (max-width:760px){#pp-filtros .pp-filters{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:520px){#pp-filtros .pp-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-color-scheme:dark){.pp-btn.pp-reset{background:#3A2523;color:#E39A96;border-color:#6B3B38;box-shadow:0 1px 3px rgba(0,0,0,.5)}.pp-btn.pp-reset:hover{background:#4A2D2B}}
 .pp-title{font-family:var(--font-anthropic-sans);font-weight:600;font-size:var(--cds-font-size-title);font-variant-numeric:lining-nums tabular-nums;letter-spacing:-0.01em;margin:0}
 .pp-take{margin:4px 0 0;color:var(--color-fg-muted);font-size:var(--cds-font-size-body)}
 .pp-card{position:relative;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg)}
@@ -24,10 +34,21 @@ html,body{margin:0;background:var(--color-bg)}body{padding:24px}
 .pp-note{margin:2px 0 var(--cds-gap-sm);color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
 .pp-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--cds-gap-sm);align-items:end}
 .pp-f{display:flex;flex-direction:column;gap:4px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);min-width:0}
+.pp-ms{position:relative}
+.pp-ms-b{display:block;width:100%;min-width:0;height:28px;padding:3px 22px 3px 6px;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-bg);color:var(--color-fg);font:inherit;font-size:12.5px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;position:relative}
+.pp-ms-b::after{content:"▾";position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--color-fg-muted)}
+.pp-ms-p{position:absolute;left:0;top:calc(100% + 4px);min-width:100%;width:max-content;max-width:min(380px,80vw);max-height:280px;overflow:auto;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);z-index:30;padding:6px}
+.pp-ms-p[hidden]{display:none}
+.pp-ms-p label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:6px;font-size:12.5px;line-height:1.3;cursor:pointer}
+.pp-ms-p label:hover{background:var(--color-bg)}
+.pp-ms-p input{margin:0;flex:none}
+.pp-ms-clr{display:block;width:100%;margin:0 0 4px;padding:4px 6px;border:0;border-bottom:1px solid var(--color-border-line);background:none;color:var(--color-fg-muted);font:inherit;font-size:12px;text-align:left;cursor:pointer}
 .pp-f select,.pp-search{width:100%;min-width:0;padding:6px 8px;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-bg);color:var(--color-fg);font:inherit;font-size:var(--cds-font-size-body)}
 .pp-btn{padding:6px 12px;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-bg);color:var(--color-fg);font:inherit;font-size:var(--cds-font-size-body);cursor:pointer}
 .pp-btn[aria-pressed=true]{background:var(--color-fg);color:var(--color-bg);border-color:var(--color-fg)}
-.pp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:var(--cds-gap-md)}
+.pp-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--cds-gap-md)}
+@media (max-width:760px){.pp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.pp-kpis{grid-template-columns:minmax(0,1fr)}}
 .pp-kpi{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);min-height:6.5rem}
 .pp-kl{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
 .pp-kv{font-family:var(--font-anthropic-sans);font-weight:600;font-size:var(--cds-font-size-title);font-variant-numeric:tabular-nums;margin-top:4px;line-height:1.15}
@@ -55,6 +76,13 @@ html,body{margin:0;background:var(--color-bg)}body{padding:24px}
 .pp-sec[hidden]{display:none}
 .pp-state{display:flex;align-items:center;justify-content:center;gap:8px;min-height:200px;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
 .pp-state i{width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad);display:inline-block}
+.pp-fuente{margin:0}
+.pp-fuente summary{display:inline-block;cursor:pointer;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);text-decoration:underline;text-underline-offset:2px;list-style:none}
+.pp-fuente summary::-webkit-details-marker{display:none}
+.pp-fuente summary:hover{color:var(--color-fg)}
+.pp-fuente[open] summary{margin-bottom:6px}
+.pp-fuente[open] summary::after{content:' ▴'}
+.pp-fuente:not([open]) summary::after{content:' ▾'}
 .pp-foot{color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);margin:0}
 .pp-hint{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
 @media (max-width:640px){.pp-hide{display:none}}
@@ -67,15 +95,15 @@ html,body{margin:0;background:var(--color-bg)}body{padding:24px}
 
   <section class="pp-card" id="pp-filtros" data-source="real26 ppto27">
     <div class="pp-filters">
-      <label class="pp-f"><span>Filial</span><select data-k="filial" aria-label="Filial"></select></label>
-      <label class="pp-f"><span>Macrocuenta</span><select data-k="mac" aria-label="Macrocuenta"></select></label>
-      <label class="pp-f"><span>Cuenta</span><select data-k="cuenta" aria-label="Cuenta"></select></label>
+      <div class="pp-f"><span>Macrocuenta</span><div class="pp-ms" data-k="mac"><button type="button" class="pp-ms-b" aria-haspopup="true" aria-expanded="false" aria-label="Macrocuenta">Todos</button><div class="pp-ms-p" hidden></div></div></div>
+      <div class="pp-f"><span>Cuenta</span><div class="pp-ms" data-k="cuenta"><button type="button" class="pp-ms-b" aria-haspopup="true" aria-expanded="false" aria-label="Cuenta">Todos</button><div class="pp-ms-p" hidden></div></div></div>
       <label class="pp-f"><span>Gerencia R1</span><select data-k="r1" aria-label="Gerencia R1"></select></label>
-      <label class="pp-f"><span>Gerencia R2</span><select data-k="r2" aria-label="Gerencia R2"></select></label>
+      <div class="pp-f"><span>Gerencia R2</span><div class="pp-ms" data-k="r2"><button type="button" class="pp-ms-b" aria-haspopup="true" aria-expanded="false" aria-label="Gerencia R2">Todos</button><div class="pp-ms-p" hidden></div></div></div>
       <label class="pp-f"><span>Proveedor</span><select data-k="prov" aria-label="Proveedor"></select></label>
+      <label class="pp-f"><span>Filial</span><select data-k="filial" aria-label="Filial"></select></label>
       <label class="pp-f"><span>Tipo de servicio</span><select data-k="tipo" aria-label="Tipo de servicio"></select></label>
-      <div class="pp-f"><button class="pp-btn" id="pp-reset" type="button">Limpiar filtros</button></div>
     </div>
+    <div class="pp-fact"><button class="pp-btn pp-reset" id="pp-reset" type="button">Limpiar filtros</button></div>
   </section>
 
   <section class="pp-kpis" id="pp-kpis" data-source="real26 ppto27">
@@ -95,13 +123,14 @@ html,body{margin:0;background:var(--color-bg)}body{padding:24px}
       <div class="pp-bar">
         <div class="pp-grow"><h2 class="pp-h">Real 2026 vs PPTO 2027</h2><p class="pp-note" id="pp-dimnote">Por cuenta · los 10 mayores. Clic en una barra para filtrar.</p></div>
         <div class="pp-bar" id="pp-dims">
+          <button class="pp-btn" id="pp-dback" type="button" hidden>← Anteriores</button>
           <button class="pp-btn" type="button" data-dim="mac" aria-pressed="false">Macrocuenta</button>
           <button class="pp-btn" type="button" data-dim="cuenta" aria-pressed="true">Cuenta</button>
-          <button class="pp-btn" type="button" data-dim="filial" aria-pressed="false">Filial</button>
           <button class="pp-btn" type="button" data-dim="r1" aria-pressed="false">Gerencia R1</button>
           <button class="pp-btn" type="button" data-dim="r2" aria-pressed="false">Gerencia R2</button>
           <button class="pp-btn" type="button" data-dim="prov" aria-pressed="false">Proveedor</button>
           <button class="pp-btn" type="button" data-dim="serv" aria-pressed="false">Servicio</button>
+          <button class="pp-btn" type="button" data-dim="filial" aria-pressed="false">Filial</button>
           <button class="pp-btn" type="button" data-dim="tipo" aria-pressed="false">Tipo</button>
         </div>
       </div>
@@ -158,7 +187,7 @@ html,body{margin:0;background:var(--color-bg)}body{padding:24px}
     </section>
   </div>
 
-  <p class="pp-foot">Fuente: hojas REAL_2026 y PPTO_2027 del archivo «Tecnología - PPTO-2027». Montos netos (sin IVA) en CLP. Real 2026 incluye ene–dic tal como está en la hoja. Se excluyen las cuentas de depreciación, amortización y remuneraciones, que aún no están en el PPTO 2027. Variación = PPTO 2027 − Real 2026; positivo = más gasto. El tipo de servicio viene de cada hoja: «Nuevo» solo existe en el PPTO 2027 y «Dado de baja» solo en el Real 2026. El servicio es la columna «Nombre del servicio» de cada hoja, comparada sin distinguir mayúsculas ni tildes; las filas sin nombre de servicio se agrupan por cuenta como «Sin agrupar · nombre de la cuenta». Inversiones SB S.A. e Inversiones SB Ltda. se muestran como un solo proveedor, igual que Tecnología LK y Tecnologia LK Spa, y las variantes de Stuedemann se unifican como Stuedemann S.A.; Orion 2000 S.A. (2026) se compara con eSource Capital (2027, servicios continuos); en la cuenta 3101308, «Fondo Insumos Filial» (2026) se compara con «Por Cotizacion» (2027); en Gerencia R2, «Desarrollo Backoffice» (2026) se muestra como «Business Partner R&K y áreas centrales» y «Desarrollo Front Office» (2026) como «Business Partner SB». Las barras y filtros comparan por nombre de proveedor, cuenta, filial y gerencia tal como están escritos en cada hoja.</p>
+  <details class="pp-fuente"><summary>Ver fuente</summary><p class="pp-foot">Hojas REAL_2026 y PPTO_2027 del archivo «Tecnología - PPTO-2027». Montos netos (sin IVA) en CLP. Real 2026 incluye ene–dic tal como está en la hoja. Incluye la macrocuenta Depreciaciones (depreciación de equipos y amortización de software; en el PPTO 2027 se llama «Depreciación» y se unifica). Se excluyen las remuneraciones. Variación = PPTO 2027 − Real 2026; positivo = más gasto. El tipo de servicio viene de cada hoja: «Nuevo» solo existe en el PPTO 2027 y «Dado de baja» solo en el Real 2026. El servicio es la columna «Nombre del servicio» de cada hoja, comparada sin distinguir mayúsculas ni tildes; las filas sin nombre de servicio se agrupan por cuenta como «Sin agrupar · nombre de la cuenta». Inversiones SB S.A. e Inversiones SB Ltda. se muestran como un solo proveedor, igual que Tecnología LK y Tecnologia LK Spa, y las variantes de Stuedemann se unifican como Stuedemann S.A.; Orion 2000 S.A. (2026) se compara con eSource Capital (2027, servicios continuos); en la cuenta 3101308, «Fondo Insumos Filial» (2026) se compara con «Por Cotizacion» (2027); en Gerencia R2, «Desarrollo Backoffice» (2026) se muestra como «Business Partner R&K y áreas centrales» y «Desarrollo Front Office» (2026) como «Business Partner SB». Las barras y filtros comparan por nombre de proveedor, cuenta, filial y gerencia tal como están escritos en cada hoja.</p></details>
 </div>
 
 <script>// https://d3js.org v7.9.0 Copyright 2010-2023 Mike Bostock
@@ -206,9 +235,11 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
   const qa=(s)=>Array.from(root.querySelectorAll(s));
   const DIMS={mac:'Macrocuenta',cuenta:'Cuenta',filial:'Filial',r1:'Gerencia R1',r2:'Gerencia R2',prov:'Proveedor',serv:'Servicio',tipo:'Tipo'};
   const WDIM_PL={serv:'servicios',cuenta:'cuentas',prov:'proveedores'};
+  const lcDim=(s)=>s.toLowerCase().replace(/\br([12])\b/,'R$1');
   const FILT=['filial','mac','cuenta','r1','r2','prov','tipo'];
+  const MULTI=['mac','cuenta','r2'],SEP='||';let msOpen=null;
   const kf={mac:r=>r.mac,cuenta:r=>r.cuenta,filial:r=>r.filial,r1:r=>r.r1,r2:r=>r.r2,prov:r=>r.prov,serv:r=>r.serv,tipo:r=>r.tipo};
-  let dim='cuenta',wdim='serv',wOffset=0,wSel=null,wtS={k:null,d:-1},wdS={k:null,d:-1},wsS={k:null,d:-1},tab='cascada',sortKey='a27',sortDir=-1,query='';
+  let dim='cuenta',wdim='serv',wOffset=0,dOffset=0,wSel=null,wtS={k:null,d:-1},wdS={k:null,d:-1},wsS={k:null,d:-1},tab='cascada',sortKey='a27',sortDir=-1,query='';
   const nf0=new Intl.NumberFormat('es-CL',{maximumFractionDigits:0});
   const nf1=new Intl.NumberFormat('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
   const pctf=new Intl.NumberFormat('es-CL',{style:'percent',minimumFractionDigits:1,maximumFractionDigits:1,signDisplay:'exceptZero'});
@@ -228,7 +259,7 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
   const eqR2=(s)=>/^gerencia desarrollo back[ -]?(office|end)$/i.test(s)?'Gerencia Business Partner R&K y áreas centrales':(/^gerencia desarrollo front[ -]?(office|end)$/i.test(s)?'Gerencia Business Partner SB':s);
   const nk=(x)=>String(x).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
   function prep(rows,is27){
-    return rows.filter((r)=>!/deprec|amort|remuneraci/i.test(String(r.cuenta_nombre))).map((r)=>{
+    return rows.filter((r)=>!/remuneraci/i.test(String(r.cuenta_nombre))).map((r)=>{
       const prov0=(()=>{const p=tidy(r.proveedor,'(sin proveedor)');if(/^tecnolog[ií]a lk( spa)?$/i.test(p))return 'Tecnología LK';if(/^stue?demann/i.test(p))return 'Stuedemann S.A.';return (tidy(r.cuenta,'')==='3101308'&&/^fondos? insumos filial/i.test(p))?'Por Cotizacion':p;})();const prov=/^inversiones sb( s\.?a\.?| ltda\.?)?$/i.test(prov0)?'Inversiones SB':((/^orion 2000/i.test(prov0)||(/^esource capital$/i.test(prov0)&&/^continuo/i.test(tidy(r.tipo,''))))?'eSource Capital (ex Orion 2000 S.A.)':prov0);
       const lic=false;
       const mdmF=tidy(r.filial,''),mdmS=normL(r.servicio);
@@ -236,7 +267,7 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       const tel=tidy(r.cuenta,'')==='3101313'&&(/^central telef[oó]nica - (licencias|soporte) telefonia para la mesa de ayuda/i.test(mdmS)||/^infraestructura y telefon[ií]a 3cx/i.test(mdmS)||/^servicio on-demand mantenci[oó]n plataforma/i.test(mdmS));
       const provF=lic?'Licencias':prov;
       const s0=tidy(r.servicio,'');const sk=s0?nk(s0):'~sin|'+tidy(r.cuenta,'');const sl=s0||('Sin agrupar · '+(tidy(r.cuenta_nombre,'')||tidy(r.cuenta,'(sin cuenta)')));
-      return {desc:tidy(r.descripcion,'(sin descripción)'),mac:tidy(r.macro,'(sin macrocuenta)'),serv:sk,servL:sl,tipo:tidy(r.tipo,'(sin tipo)'),filial:tidy(r.filial,'(sin filial)'),cuenta:tidy(r.cuenta,'(sin cuenta)'),cuentaN:tidy(r.cuenta_nombre,''),r1:tidy(r.r1,'(sin asignar)'),r2:/^slimstock/i.test(tidy(r.proveedor,''))?'Gerencia Business Partner PU':eqR2(tidy(r.r2,'(sin asignar)')),prov:provF.toUpperCase(),provL:provF,mes:Number(r.mes)||0,monto:Number(r.monto)||0};
+      return {desc:tidy(r.descripcion,'(sin descripción)'),mac:tidy(r.macro,'(sin macrocuenta)').replace(/^Depreciaci[oó]n$/i,'Depreciaciones'),serv:sk,servL:sl,tipo:tidy(r.tipo,'(sin tipo)'),filial:tidy(r.filial,'(sin filial)'),cuenta:tidy(r.cuenta,'(sin cuenta)'),cuentaN:tidy(r.cuenta_nombre,''),r1:tidy(r.r1,'(sin asignar)'),r2:/^slimstock/i.test(tidy(r.proveedor,''))?'Gerencia Business Partner PU':eqR2(tidy(r.r2,'(sin asignar)')),prov:provF.toUpperCase(),provL:provF,mes:Number(r.mes)||0,monto:Number(r.monto)||0};
     });
   }
 
@@ -263,10 +294,10 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
   }
   const hideTip=(card)=>{card.querySelector('.pp-tip').hidden=true;};
 
-  function pick(k,v){wOffset=0;wSel=null;dash.setParams({[k]:v});render();}
+  function pick(k,v){wOffset=0;dOffset=0;wSel=null;dash.setParams({[k]:v});render();}
 
   function fitLabel(meas,s,cap){meas.text(s);if(meas.node().getComputedTextLength()<=cap)return s;let lo=1,hi=s.length;while(lo<hi){const mid=Math.ceil((lo+hi)/2);meas.text(s.slice(0,mid)+'…');if(meas.node().getComputedTextLength()<=cap)lo=mid;else hi=mid-1;}return s.slice(0,lo)+'…';}
-  function drawBars(el,items,labelOf){
+  function drawBars(el,items,onMore){
     el.replaceChildren();
     const card=el.closest('.pp-card');
     const W=Math.max(el.clientWidth,280);
@@ -293,7 +324,7 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       const bar=(v,yy,fill)=>svg.append('rect').attr('x',Math.min(x0,x(v))).attr('y',yy).attr('width',Math.max(1,Math.abs(x(v)-x0))).attr('height',11).attr('rx',3).attr('fill',fill).attr('stroke',fill===C27?'var(--c-dec)':'none').attr('stroke-width',1);
       bar(it.a26,y+5,C26);bar(it.a27,y+19,C27);
       const hit=svg.append('rect').attr('x',0).attr('y',y).attr('width',W).attr('height',rowH).attr('fill','transparent');
-      if(it.key!==null)hit.style('cursor','pointer').on('click',()=>pick(dim,it.key));
+      if(it.key!==null)hit.style('cursor','pointer').on('click',()=>pick(dim,it.key));else if(onMore)hit.style('cursor','pointer').on('click',onMore);
       hit.on('pointermove',(ev)=>showTip(card,ev,[{t:it.label},{t:'Real 2026: '+peso(it.a26),sw:C26},{t:'PPTO 2027: '+peso(it.a27),sw:C27},{t:'Var.: '+(it.a27-it.a26>0?'+':'')+peso(it.a27-it.a26).replace('$-','-$')+' ('+pct(it.a26,it.a27)+')'}]))
          .on('pointerleave',()=>hideTip(card));
     });
@@ -335,12 +366,13 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
     const mn=d3.min(pts),mx=d3.max(pts),range=Math.max(mx-mn,1);
     const lo=mn-range*0.6,hi=mx+range*0.2;
     const y=d3.scaleLinear([lo,hi],[H-mb,mt]);
-    let tw=0;y.ticks(6).forEach((tk)=>{meas.text(nf0.format(tk/1e6));tw=Math.max(tw,meas.node().getComputedTextLength());});
+    const fmtY=(v)=>((hi-lo)/1e6<10?nf1:nf0).format(v/1e6);
+    let tw=0;y.ticks(6).forEach((tk)=>{meas.text(fmtY(tk));tw=Math.max(tw,meas.node().getComputedTextLength());});
     const ML=tw+16;
     const n=rows.length,band=(W-ML-mr)/n,bw=Math.max(8,band*0.62);
     const cx=(i)=>ML+band*(i+0.5);
     svg.append('g').attr('transform','translate('+ML+',0)')
-      .call(d3.axisLeft(y).ticks(6).tickSize(-(W-ML-mr)).tickFormat((v)=>nf0.format(v/1e6)))
+      .call(d3.axisLeft(y).ticks(6).tickSize(-(W-ML-mr)).tickFormat(fmtY))
       .call((g)=>{g.select('.domain').remove();g.selectAll('text').attr('font-size',null).attr('font-family',null).attr('fill','var(--color-fg-muted)').style('font-size','var(--cds-font-size-caption)');g.selectAll('line').attr('stroke','var(--cds-chart-grid)');});
     const labLines=rows.map((r)=>wrapLabel(meas,r.label,band-6,3));
     meas.remove();
@@ -386,7 +418,7 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
     ['pp-bars','pp-wf'].forEach((id)=>document.getElementById(id).classList.remove('dash-skeleton'));
     const R26=prep(real.data,false),R27=prep(ppto.data,true);
     const p=dash.params();
-    const F={};FILT.forEach((k)=>{F[k]=p[k]||null;});
+    const F={};FILT.forEach((k)=>{F[k]=p[k]?(MULTI.includes(k)?String(p[k]).split(SEP):p[k]):null;});
     const labels={serv:new Map()};FILT.forEach((k)=>{labels[k]=new Map();});
     R26.concat(R27).forEach((r)=>{
       labels.filial.set(r.filial,r.filial);labels.r1.set(r.r1,r.r1);labels.r2.set(r.r2,r.r2);if(!labels.serv.has(r.serv))labels.serv.set(r.serv,r.servL);labels.mac.set(r.mac,r.mac);labels.tipo.set(r.tipo,r.tipo);
@@ -395,10 +427,10 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       if(!labels.cuenta.has(r.cuenta)||(r.cuentaN&&labels.cuenta.get(r.cuenta)===r.cuenta))labels.cuenta.set(r.cuenta,cl);
     });
     const lab=(k,v)=>labels[k].get(v)||v;
-    const pass=(r,skip)=>FILT.every((k)=>k===skip||!F[k]||kf[k](r)===F[k]);
+    const pass=(r,skip)=>FILT.every((k)=>k===skip||!F[k]||(MULTI.includes(k)?F[k].includes(kf[k](r)):kf[k](r)===F[k]));
 
     // filtros en cascada
-    qa('.pp-filters select').forEach((sel)=>{
+    qa('select[data-k]').forEach((sel)=>{
       const k=sel.dataset.k;
       const keys=new Set();
       R26.concat(R27).forEach((r)=>{if(pass(r,k))keys.add(kf[k](r));});
@@ -407,6 +439,32 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       sel.replaceChildren(new Option('Todos',''),...arr.map((v)=>new Option(lab(k,v),v)));
       sel.value=F[k]||'';
       sel.style.borderColor=F[k]?'var(--color-fg)':'';
+    });
+
+    qa('.pp-ms[data-k]').forEach((box)=>{
+      const k=box.dataset.k;
+      const keys=new Set();
+      R26.concat(R27).forEach((r)=>{if(pass(r,k))keys.add(kf[k](r));});
+      const sel=F[k]||[];
+      sel.forEach((v)=>keys.add(v));
+      const arr=Array.from(keys).sort((a,b)=>lab(k,a).localeCompare(lab(k,b),'es'));
+      const btn=box.querySelector('.pp-ms-b'),pan=box.querySelector('.pp-ms-p');
+      btn.textContent=!sel.length?'Todos':(sel.length===1?lab(k,sel[0]):sel.length+' seleccionadas');
+      btn.title=sel.map((v)=>lab(k,v)).join(', ');
+      btn.style.borderColor=sel.length?'var(--color-fg)':'';
+      btn.setAttribute('aria-expanded',msOpen===k?'true':'false');
+      pan.hidden=msOpen!==k;
+      const st=pan.scrollTop;
+      pan.replaceChildren();
+      if(sel.length){const c=document.createElement('button');c.type='button';c.className='pp-ms-clr';c.textContent='Limpiar selección';c.addEventListener('click',()=>{pick(k,null);});pan.appendChild(c);}
+      arr.forEach((v)=>{
+        const l=document.createElement('label');
+        const cb=document.createElement('input');cb.type='checkbox';cb.checked=sel.includes(v);
+        cb.addEventListener('change',()=>{const cur=new Set(sel);if(cb.checked)cur.add(v);else cur.delete(v);const out=Array.from(cur);pick(k,out.length?out.join(SEP):null);});
+        const s=document.createElement('span');s.textContent=lab(k,v);
+        l.append(cb,s);pan.appendChild(l);
+      });
+      pan.scrollTop=st;
     });
 
     const A26=R26.filter((r)=>pass(r,null)),A27=R27.filter((r)=>pass(r,null));
@@ -426,15 +484,20 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       A26.forEach((r)=>add(r,'a26'));A27.forEach((r)=>add(r,'a27'));
       const all=Array.from(m.values()).map((o)=>({...o,dv:o.a27-o.a26,dp:o.a26?(o.a27-o.a26)/Math.abs(o.a26):(o.a27?Infinity:0)}));
       const byMax=all.slice().sort((a,b)=>Math.max(b.a26,b.a27)-Math.max(a.a26,a.a27));
-      let items=byMax.slice(0,10);
-      if(byMax.length>10){
-        const rest=byMax.slice(10);
+      const PG=10;
+      if(dOffset>=byMax.length)dOffset=0;
+      let items=byMax.slice(dOffset,dOffset+PG);
+      const rest=byMax.slice(dOffset+PG);
+      if(rest.length){
         items=items.concat([{key:null,label:'Otros ('+rest.length+')',a26:d3.sum(rest,(o)=>o.a26),a27:d3.sum(rest,(o)=>o.a27)}]);
       }
-      q('#pp-dimnote').textContent='Por '+DIMS[dim].toLowerCase()+' · los 10 mayores'+(byMax.length>10?', el resto agrupado en Otros':'')+'. Clic en una barra para filtrar.';
-      drawBars(q('#pp-bars'),items);
+      q('#pp-dback').hidden=dOffset===0;
+      q('#pp-dimnote').textContent=dOffset===0
+        ? 'Por '+lcDim(DIMS[dim])+' · los 10 mayores'+(byMax.length>PG?', el resto agrupado en Otros':'')+'. Clic en una barra para filtrar'+(byMax.length>PG?' y en Otros para ver el siguiente grupo':'')+'.'
+        : 'Por '+lcDim(DIMS[dim])+' · mostrando del '+(dOffset+1)+' al '+Math.min(dOffset+PG,byMax.length)+' de '+byMax.length+', ordenados por monto. Clic en una barra para filtrar y en Otros para ver el siguiente grupo.';
+      drawBars(q('#pp-bars'),items,()=>{dOffset+=PG;render();});
 
-      q('#pp-tabtitle').textContent='Detalle por '+DIMS[dim].toLowerCase();
+      q('#pp-tabtitle').textContent='Detalle por '+lcDim(DIMS[dim]);
       const cols=[['label',DIMS[dim]],['a26','Real 2026'],['a27','PPTO 2027'],['dv','Var. $'],['dp','Var. %']];
       const thr=q('#pp-thr');thr.replaceChildren();
       cols.forEach(([k,t])=>{
@@ -453,7 +516,7 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       const tb=q('#pp-t tbody');tb.replaceChildren();
       const addRow=(o,total)=>{
         const tr=document.createElement('tr');
-        if(total)tr.className='pp-total';else if(!F[dim]){tr.dataset.key=o.key;}
+        if(total)tr.className='pp-total';else if(!F[dim]||MULTI.includes(dim)){tr.dataset.key=o.key;}
         const vals=[o.label,mm(o.a26),mm(o.a27),smm(o.a27-o.a26),pct(o.a26,o.a27)];
         vals.forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;if(i>=3)td.className=cls(o.a27-o.a26);tr.appendChild(td);});
         tb.appendChild(tr);
@@ -464,11 +527,15 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       const m=new Map();
       const add=(r,f)=>{const k=kf[wdim](r);let o=m.get(k);if(!o){o={key:k,label:lab(wdim,k),a26:0,a27:0};m.set(k,o);}o[f]+=r.monto;};
       A26.forEach((r)=>add(r,'a26'));A27.forEach((r)=>add(r,'a27'));
-      const all=Array.from(m.values()).map((o)=>({...o,dv:o.a27-o.a26})).filter((o)=>o.dv!==0).sort((a,b)=>Math.abs(b.dv)-Math.abs(a.dv));
+      const all0=Array.from(m.values()).map((o)=>({...o,dv:o.a27-o.a26})).filter((o)=>o.dv!==0).sort((a,b)=>Math.abs(b.dv)-Math.abs(a.dv));
+      const isB=(o)=>!!F.mac&&F.mac.includes('Depreciaciones')&&wdim==='serv'&&/^base$/i.test(String(o.label).trim());
+      const baseO=all0.find(isB)||null;
+      const all=all0.filter((o)=>o!==baseO);
       if(wOffset>=all.length)wOffset=0;
       const pool=all.slice(wOffset);
       const topN=pool.slice(0,8),rest=pool.slice(8);
       const steps=topN.slice().sort((a,b)=>b.dv-a.dv);
+      if(baseO&&wOffset===0)steps.unshift(baseO);
       if(rest.length)steps.push({key:null,label:'Otros ('+rest.length+')',a26:d3.sum(rest,(o)=>o.a26),a27:d3.sum(rest,(o)=>o.a27),dv:d3.sum(rest,(o)=>o.dv)});
       const s26=wOffset?d3.sum(pool,(o)=>o.a26):t26,s27=wOffset?d3.sum(pool,(o)=>o.a27):t27;
       q('#pp-wback').hidden=wOffset===0;
@@ -517,17 +584,22 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
   }
 
   // eventos
-  qa('.pp-filters select').forEach((sel)=>sel.addEventListener('change',()=>pick(sel.dataset.k,sel.value||null)));
-  q('#pp-reset').addEventListener('click',()=>{const o={};FILT.forEach((k)=>{o[k]=null;});dash.setParams(o);wOffset=0;wSel=null;query='';q('#pp-q').value='';render();});
+  const syncMs=()=>qa('.pp-ms[data-k]').forEach((b)=>{const o=msOpen===b.dataset.k;b.querySelector('.pp-ms-p').hidden=!o;b.querySelector('.pp-ms-b').setAttribute('aria-expanded',o?'true':'false');});
+  qa('.pp-ms[data-k]').forEach((box)=>box.querySelector('.pp-ms-b').addEventListener('click',()=>{msOpen=(msOpen===box.dataset.k?null:box.dataset.k);syncMs();}));
+  document.addEventListener('click',(ev)=>{if(msOpen&&!ev.target.closest('.pp-ms')){msOpen=null;syncMs();}});
+  document.addEventListener('keydown',(ev)=>{if(ev.key==='Escape'&&msOpen){msOpen=null;syncMs();}});
+  qa('select[data-k]').forEach((sel)=>sel.addEventListener('change',()=>pick(sel.dataset.k,sel.value||null)));
+  q('#pp-reset').addEventListener('click',()=>{const o={};FILT.forEach((k)=>{o[k]=null;});dash.setParams(o);wOffset=0;dOffset=0;wSel=null;query='';q('#pp-q').value='';render();});
   qa('[data-tab]').forEach((b)=>b.addEventListener('click',()=>{
     tab=b.dataset.tab;setActive('[data-tab]','data-tab',tab);
     q('#pp-anual').hidden=tab!=='anual';q('#pp-cascada').hidden=tab!=='cascada';
     dash.setLink(tab==='anual'?'pp-anual':'pp-cascada');render();
   }));
-  qa('[data-dim]').forEach((b)=>b.addEventListener('click',()=>{dim=b.dataset.dim;sortKey='a27';sortDir=-1;query='';q('#pp-q').value='';setActive('[data-dim]','data-dim',dim);render();}));
+  qa('[data-dim]').forEach((b)=>b.addEventListener('click',()=>{dim=b.dataset.dim;dOffset=0;sortKey='a27';sortDir=-1;query='';q('#pp-q').value='';setActive('[data-dim]','data-dim',dim);render();}));
   q('#pp-wt tbody').addEventListener('click',(ev)=>{const tr=ev.target.closest('tr[data-wkey]');if(!tr)return;const k=tr.dataset.wkey;if(k==='__otros__'){wOffset+=8;wSel=null;}else{wSel=(wSel===k?null:k);}render();});
   q('#pp-wdclose').addEventListener('click',()=>{wSel=null;render();});
   qa('[data-wdim]').forEach((b)=>b.addEventListener('click',()=>{wdim=b.dataset.wdim;wOffset=0;wSel=null;setActive('[data-wdim]','data-wdim',wdim);render();}));
+  q('#pp-dback').addEventListener('click',()=>{dOffset=Math.max(0,dOffset-10);render();});
   q('#pp-wback').addEventListener('click',()=>{wOffset=Math.max(0,wOffset-8);wSel=null;render();});
   q('#pp-q').addEventListener('input',(e)=>{query=e.target.value;render();});
   q('#pp-t tbody').addEventListener('click',(ev)=>{const tr=ev.target.closest('tr[data-key]');if(tr)pick(dim,tr.dataset.key);});
