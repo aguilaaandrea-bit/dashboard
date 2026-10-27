@@ -237,7 +237,7 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
   const WDIM_PL={serv:'servicios',cuenta:'cuentas',prov:'proveedores'};
   const lcDim=(s)=>s.toLowerCase().replace(/\br([12])\b/,'R$1');
   const FILT=['filial','mac','cuenta','r1','r2','prov','tipo'];
-  const MULTI=['mac','cuenta','r2'],SEP='||';let msOpen=null;
+  const MULTI=['mac','cuenta','r2'],SEP='||';let msOpen=null,wBase=0;
   const kf={mac:r=>r.mac,cuenta:r=>r.cuenta,filial:r=>r.filial,r1:r=>r.r1,r2:r=>r.r2,prov:r=>r.prov,serv:r=>r.serv,tipo:r=>r.tipo};
   let dim='cuenta',wdim='serv',wOffset=0,dOffset=0,wSel=null,wtS={k:null,d:-1},wdS={k:null,d:-1},wsS={k:null,d:-1},tab='cascada',sortKey='a27',sortDir=-1,query='';
   const nf0=new Intl.NumberFormat('es-CL',{maximumFractionDigits:0});
@@ -356,10 +356,10 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
     const card=el.closest('.pp-card');
     const rows=[{label:startLabel,kind:'tot',to:t26,fill:(/^Subtotal/.test(startLabel)?'var(--c-sec)':'var(--c-total)'),v:t26}];
     let cur=t26;
-    steps.forEach((s)=>{rows.push({label:s.label,kind:'step',key:s.key,from:cur,to:cur+s.dv,fill:s.dv>=0?'var(--c-inc)':'var(--c-dec)',v:s.dv,a26:s.a26,a27:s.a27});cur+=s.dv;});
-    rows.push({label:endLabel,kind:'tot',to:t27,fill:(/^Subtotal/.test(endLabel)?'var(--c-sec)':'var(--c-total)'),v:t27});
+    steps.forEach((s)=>{rows.push({label:s.label,kind:'step',key:s.key,from:cur,to:cur+s.dv,fill:s.dv>=0?'var(--c-inc)':'var(--c-dec)',v:s.dv,a26:s.a26,a27:s.a27,pc:wBase?pctf.format(s.dv/wBase):'—'});cur+=s.dv;});
+    rows.push({label:endLabel,kind:'tot',to:t27,fill:(/^Subtotal/.test(endLabel)?'var(--c-sec)':'var(--c-total)'),v:t27,pc:wBase?pctf.format((t27-t26)/wBase):'—'});
     const W=Math.max(el.clientWidth,320),H=W<560?420:480;
-    const mt=26,mr=10,mb=70;
+    const mt=40,mr=10,mb=70;
     const svg=d3.select(el).append('svg').attr('width','100%').attr('viewBox','0 0 '+W+' '+H);
     const meas=svg.append('text').attr('font-size',11).attr('visibility','hidden');
     const pts=[];rows.forEach((r)=>{pts.push(r.to);if(r.kind==='step')pts.push(r.from);});
@@ -380,7 +380,8 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       const top=r.kind==='tot'?y(r.to):y(Math.max(r.from,r.to));
       const bot=r.kind==='tot'?y(lo):y(Math.min(r.from,r.to));
       svg.append('rect').attr('x',cx(i)-bw/2).attr('y',top).attr('width',bw).attr('height',Math.max(2,bot-top)).attr('rx',3).attr('fill',r.fill).attr('stroke',(r.kind==='step'&&r.key!==null&&r.key===wSel)?'var(--color-fg)':'none').attr('stroke-width',2);
-      svg.append('text').attr('x',cx(i)).attr('y',top-6).attr('text-anchor','middle').attr('font-size',11).attr('fill','var(--color-fg-muted)').text(r.kind==='tot'?mm(r.v):smm(r.v));
+      svg.append('text').attr('x',cx(i)).attr('y',r.pc?top-19:top-6).attr('text-anchor','middle').attr('font-size',11).attr('fill','var(--color-fg)').text(r.kind==='tot'?mm(r.v):smm(r.v));
+      if(r.pc)svg.append('text').attr('x',cx(i)).attr('y',top-6).attr('text-anchor','middle').attr('font-size',10).attr('font-weight',400).attr('fill','var(--color-fg-muted)').text(r.pc);
       if(i<rows.length-1){
         const ly=y(r.to);
         svg.append('line').attr('x1',cx(i)+bw/2).attr('x2',cx(i+1)-bw/2).attr('y1',ly).attr('y2',ly).attr('stroke','var(--cds-chart-axis)').attr('stroke-dasharray','2 2');
@@ -540,7 +541,7 @@ const __map=(x)=>({r1:x.gerencia_r1,r2:x.gerencia_r2,macro:x.macrocuenta,cuenta:
       const s26=wOffset?d3.sum(pool,(o)=>o.a26):t26,s27=wOffset?d3.sum(pool,(o)=>o.a27):t27;
       q('#pp-wback').hidden=wOffset===0;
       q('#pp-wnote').textContent=(wOffset===0?'Los '+Math.min(8,all.length)+' '+WDIM_PL[wdim]+' con mayor cambio entre Real 2026 y PPTO 2027, según los filtros activos.':'Mostrando del '+(wOffset+1)+' al '+(wOffset+topN.length)+' de '+all.length+' '+WDIM_PL[wdim]+', ordenados por tamaño del cambio.')+(rest.length?' Clic en una barra para ver su detalle y en Otros para ver el siguiente grupo.':'');
-      drawWaterfall(q('#pp-wf'),steps,s26,s27,wOffset?'Subtotal Real 2026 (resto)':'Real 2026',wOffset?'Subtotal PPTO 2027 (resto)':'PPTO 2027',()=>{wOffset+=8;wSel=null;render();},(k)=>{wSel=(wSel===k?null:k);render();});
+      wBase=t26;drawWaterfall(q('#pp-wf'),steps,s26,s27,wOffset?'Subtotal Real 2026 (resto)':'Real 2026',wOffset?'Subtotal PPTO 2027 (resto)':'PPTO 2027',()=>{wOffset+=8;wSel=null;render();},(k)=>{wSel=(wSel===k?null:k);render();});
       // tabla de detalle de la cascada
       const WN={serv:'Servicio',cuenta:'Cuenta',prov:'Proveedor'};
       const addR=(tb,labels,a,b,o)=>{const tr=document.createElement('tr');if(o&&o.total)tr.className='pp-total';if(o&&o.key!==undefined){tr.dataset.wkey=o.key===null?'__otros__':o.key;tr.style.cursor='pointer';if(o.key!==null&&o.key===wSel)tr.style.background='var(--color-bg)';}
